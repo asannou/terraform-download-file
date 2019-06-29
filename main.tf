@@ -11,7 +11,7 @@ resource "random_id" "tempfile" {
 }
 
 locals {
-  tempfile = "${path.module}/${random_id.tempfile.b64_std}"
+  tempfile = "${path.module}/${random_id.tempfile.b64}"
 }
 
 resource "null_resource" "tempfile" {
