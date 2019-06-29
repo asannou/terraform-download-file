@@ -19,7 +19,7 @@ resource "null_resource" "tempfile" {
     always = "${timestamp()}"
   }
   provisioner "local-exec" {
-    command = "curl -s -L -o \"${local.tempfile}\" \"${var.url}\""
+    command = "curl -s -L -z \"${local.tempfile}\" -o \"${local.tempfile}\" \"${var.url}\""
   }
 }
 
