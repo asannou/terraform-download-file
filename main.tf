@@ -2,6 +2,13 @@ variable "url" {
   type = "string"
 }
 
+data "external" "head" {
+  program = ["sh", "${path.module}/head.sh"]
+  query = {
+    url = "${var.url}"
+  }
+}
+
 resource "random_id" "tempfile" {
   keepers = {
     url = "${var.url}"
@@ -16,7 +23,7 @@ locals {
 
 resource "null_resource" "tempfile" {
   triggers {
-    always = "${timestamp()}"
+    head = "${data.external.head.result.md5}"
   }
   provisioner "local-exec" {
     command = "curl -s -L -z \"${local.tempfile}\" -o \"${local.tempfile}\" \"${var.url}\""
