@@ -22,7 +22,7 @@ locals {
 }
 
 resource "null_resource" "tempfile" {
-  triggers {
+  triggers = {
     head = "${data.external.head.result.md5}"
   }
   provisioner "local-exec" {
